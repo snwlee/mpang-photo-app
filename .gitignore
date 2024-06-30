@@ -1,0 +1,112 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+migrate_working_dir/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# The .vscode folder contains launch configuration and tasks you configure in
+# VS Code which you may wish to be included in version control, so this line
+# is commented out by default.
+#.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+/build/
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
+
+# Flutter specific
+# Generated files
+.packages
+build/
+
+# Obfuscation
+obfuscate/
+
+# Web related
+web/.dart_tool/
+web/.packages
+
+# IntelliJ related
+
+# VS Code related
+.vscode/
+
+# Android related
+android/.gradle/
+android/.idea/
+android/app/build/
+android/local.properties
+
+# iOS related
+ios/.generated/
+ios/Flutter/.last_build_id
+ios/Flutter/App.framework
+ios/Flutter/Flutter.framework
+ios/Flutter/Generated.xcconfig
+ios/Pods/
+ios/Runner/GeneratedPluginRegistrant.*
+
+# Mac related
+macos/.generated/
+macos/Flutter/ephemeral/
+macos/Flutter/Flutter.podspec
+macos/Flutter/Generated.xcconfig
+macos/Pods/
+
+# Windows related
+windows/flutter/ephemeral/
+
+# Linux related
+linux/flutter/ephemeral/
+
+# Module related
+**/.idea/**
+**/Pods/
+**/.dart_tool/
+**/.packages
+**/build/
+
+# Package specific
+
+# Flutter favorites
+/.dart_tool/
+/packages
+# Additional files and folders
+
+# Symbolication
+.ios/.syms
+
+# Coverage related
+coverage/
+lcov.info
+
+# Dependency folder
+.deps/

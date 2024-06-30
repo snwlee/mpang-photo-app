@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "898618419695",
+    "project_id": "mpang-92fac",
+    "storage_bucket": "mpang-92fac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:898618419695:android:de84e04831400fad16ee1a",
+        "android_client_info": {
+          "package_name": "com.swlee.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4TZ62OoNzob1ry6g5M4w-H0fQ2RFldn4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
