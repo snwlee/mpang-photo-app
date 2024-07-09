@@ -3,13 +3,11 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class PhotoGroup extends StatefulWidget {
-
   @override
   _PhotoGroupState createState() => _PhotoGroupState();
 }
 
 class _PhotoGroupState extends State<PhotoGroup> {
-
   late Future<List<dynamic>> data;
 
   @override
@@ -19,7 +17,8 @@ class _PhotoGroupState extends State<PhotoGroup> {
   }
 
   Future<List<dynamic>> fetchData() async {
-    final response = await http.get(Uri.parse('https://jsonplaceholder.typicode.com/posts'));
+    final response =
+        await http.get(Uri.parse('https://jsonplaceholder.typicode.com/posts'));
 
     if (response.statusCode == 200) {
       return json.decode(response.body);
@@ -51,7 +50,8 @@ class _PhotoGroupState extends State<PhotoGroup> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   image: const DecorationImage(
-                    image: NetworkImage('http://10.0.2.2:8080/api/image/index.png'),
+                    image: NetworkImage(
+                        'http://10.0.2.2:8080/api/image/index.png'),
                     fit: BoxFit.cover,
                   ),
                 ),

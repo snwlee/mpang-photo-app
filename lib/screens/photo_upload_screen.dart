@@ -1,8 +1,7 @@
-import 'dart:io';
-
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:http/http.dart' as http;
 
 import '../widgets/photo_upload_status_screen.dart';
 
@@ -14,22 +13,45 @@ class PhotoUploadScreen extends StatefulWidget {
 }
 
 class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
-  File? _image;
-
-  final picker = ImagePicker();
+  Uint8List? _imageBytes;
+  String? _imageName;
 
   Future<void> _pickImage() async {
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
 
     setState(() {
-      if (pickedFile != null) {
-        _image = File(pickedFile.path);
+      if (result != null) {
+        _imageBytes = result.files.single.bytes;
+        _imageName = result.files.single.name;
       } else {
         if (kDebugMode) {
           print('사진을 선택해주세요.');
         }
       }
     });
+  }
+
+  Future<bool> _uploadImage() async {
+    if (_imageBytes == null) return false;
+
+    final url = Uri.parse('YOUR_API_ENDPOINT_HERE');
+    var request = http.MultipartRequest('POST', url);
+    request.files.add(http.MultipartFile.fromBytes('file', _imageBytes!,
+        filename: _imageName));
+
+    try {
+      final response = await request.send();
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error uploading image: $e');
+      }
+      return false;
+    }
   }
 
   @override
@@ -59,7 +81,7 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Center(
-                  child: _image == null
+                  child: _imageBytes == null
                       ? const Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -70,7 +92,9 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
                                   fontWeight: FontWeight.normal,
                                   color: Color(0xFF07104E)),
                             ),
-                            SizedBox(height: 20,),
+                            SizedBox(
+                              height: 20,
+                            ),
                             Icon(
                               Icons.arrow_downward,
                               size: 42,
@@ -78,7 +102,7 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
                             )
                           ],
                         )
-                      : Image.file(_image!),
+                      : Image.memory(_imageBytes!),
                 ),
               ),
             ),
@@ -106,8 +130,8 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
                 ),
               ),
               child: const Text('사진 업로드'),
-              onPressed: () {
-                if (_image == null) {
+              onPressed: () async {
+                if (_imageBytes == null) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('사진을 선택해주세요.')),
                   );
@@ -115,7 +139,9 @@ class _PhotoUploadScreenState extends State<PhotoUploadScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const PhotoUploadStatusScreen()),
+                      builder: (context) =>
+                          PhotoUploadStatusScreen(uploadFunction: _uploadImage),
+                    ),
                   );
                 }
               },
